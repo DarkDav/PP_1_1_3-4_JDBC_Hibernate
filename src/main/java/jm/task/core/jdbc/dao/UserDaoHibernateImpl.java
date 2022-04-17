@@ -7,6 +7,7 @@ import java.util.List;
 public class UserDaoHibernateImpl implements UserDao {
     public UserDaoHibernateImpl() {
 
+
     }
 
 
@@ -27,7 +28,6 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void removeUserById(long id) {
-
     }
 
     @Override
