@@ -1,5 +1,6 @@
 package jm.task.core.jdbc.dao;
 
+import com.mysql.cj.xdevapi.Column;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
@@ -7,6 +8,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
@@ -59,14 +61,16 @@ public class UserDaoJDBCImpl implements UserDao {
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try (Connection connection = Util.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users");) {
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users");
+             ) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 String name = resultSet.getString("name");
                 String lastName = resultSet.getString("lastName");
                 byte age = resultSet.getByte("age");
                 users.add(new User(name, lastName, age));
-            }
+
+            } resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
