@@ -15,10 +15,12 @@ import org.hibernate.service.ServiceRegistry;
 
 public class Util {
 
-    private static String URL = "jdbc:mysql://localhost:3306/fabrica";
-    private static String USERNAME = "root";
-    private static String PASSWORD = "3We-EP9-ztf-njW";
-    private static SessionFactory sessionFactory;
+    private static final String URL = "jdbc:mysql://localhost:3306/fabrica";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "3We-EP9-ztf-njW";
+    private static SessionFactory sessionFactory = null;
+
+
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
@@ -61,5 +63,5 @@ public class Util {
         }
         return connection;
     }
-    // СЂРµР°Р»РёР·СѓР№С‚Рµ РЅР°СЃС‚СЂРѕР№РєСѓ СЃРѕРµРґРµРЅРµРЅРёСЏ СЃ Р‘Р”
+    // реализуйте настройку соеденения с БД
 }
