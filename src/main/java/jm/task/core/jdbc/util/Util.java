@@ -20,6 +20,8 @@ public class Util {
     private static final String PASSWORD = "3We-EP9-ztf-njW";
     private static SessionFactory sessionFactory = null;
 
+    private Util() {
+    }
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
@@ -54,7 +56,8 @@ public class Util {
         }
         return sessionFactory;
     }
-    public static Connection getConnection(){
+
+    public static Connection getConnection() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -63,5 +66,5 @@ public class Util {
         }
         return connection;
     }
-    // СЂРµР°Р»РёР·СѓР№С‚Рµ РЅР°СЃС‚СЂРѕР№РєСѓ СЃРѕРµРґРµРЅРµРЅРёСЏ СЃ Р‘Р”..
+    // реализуйте настройку соеденения с БД..
 }

@@ -8,11 +8,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import javax.persistence.criteria.CriteriaQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    SessionFactory sessionFactory = Util.getSessionFactory();
+    private final SessionFactory sessionFactory = Util.getSessionFactory();
     private List<User> userList;
 
     public UserDaoHibernateImpl() {
@@ -23,10 +22,8 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-
-
         Transaction transaction = null;
-        try (Session session = sessionFactory.openSession();
+        try (Session session = sessionFactory.openSession()
 
         ) {
             transaction = session.beginTransaction();
@@ -72,7 +69,7 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.save(new User(name, lastName, age));
             transaction.commit();
-            System.out.println("User с именем Ц " + name + " добавлен в базу данных");
+
         } catch (HibernateException e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -100,29 +97,21 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-
-
-        Transaction transaction = null;
-
-        try (Session session = sessionFactory.openSession();) {
+        try (Session session = sessionFactory.openSession()) {
             CriteriaQuery<User> criteriaQuery = session.getCriteriaBuilder().createQuery(User.class);
             criteriaQuery.from(User.class);
-            transaction = session.beginTransaction();
-            transaction.commit();
-            List<User> userList = session.createQuery(criteriaQuery).getResultList();
-            return userList;
+            return session.createQuery(criteriaQuery).getResultList();
         } catch (HibernateException e) {
             e.printStackTrace();
-            transaction.rollback();
+
         }
         return userList;
     }
 
     @Override
     public void cleanUsersTable() {
-
         Transaction transaction = null;
-        try (Session session = sessionFactory.openSession();) {
+        try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             session.createNativeQuery("TRUNCATE TABLE users;").executeUpdate();
             transaction.commit();
