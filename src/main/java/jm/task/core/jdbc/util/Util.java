@@ -20,9 +20,11 @@ public class Util {
     private static final String PASSWORD = "3We-EP9-ztf-njW";
     private static SessionFactory sessionFactory = null;
     private static Util INSTANCE;
+
     private Util() {
     }
-    public static Util getInstance(){
+
+    public static Util getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Util();
         }
