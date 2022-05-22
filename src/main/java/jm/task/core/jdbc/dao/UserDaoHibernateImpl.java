@@ -11,8 +11,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    private final SessionFactory sessionFactory = Util.getSessionFactory();
-    private List<User> userList;
+    private final SessionFactory sessionFactory = Util.getUtil().getSessionFactory();
+
 
     public UserDaoHibernateImpl() {
 
@@ -35,10 +35,11 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
             System.out.println("Таблица создана");
         } catch (HibernateException e) {
-            e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
             }
+            e.printStackTrace();
+
 
         }
 
@@ -55,10 +56,10 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
             System.out.println("Таблица удалена");
         } catch (HibernateException e) {
-            e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
             }
+            e.printStackTrace();
         }
     }
 
@@ -71,10 +72,10 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
 
         } catch (HibernateException e) {
-            e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
             }
+            e.printStackTrace();
         }
     }
 
@@ -88,15 +89,16 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
             System.out.println("User удален");
         } catch (HibernateException e) {
-            e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
             }
+            e.printStackTrace();
         }
     }
 
     @Override
     public List<User> getAllUsers() {
+        List<User> userList = null;
         try (Session session = sessionFactory.openSession()) {
             CriteriaQuery<User> criteriaQuery = session.getCriteriaBuilder().createQuery(User.class);
             criteriaQuery.from(User.class);
@@ -117,10 +119,10 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
             System.out.println("Таблица очищена");
         } catch (HibernateException e) {
-            e.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
             }
+            e.printStackTrace();
         }
     }
 }

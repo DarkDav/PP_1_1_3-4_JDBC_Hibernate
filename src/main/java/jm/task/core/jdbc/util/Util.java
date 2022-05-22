@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-
 import jm.task.core.jdbc.model.User;
-import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -19,16 +17,16 @@ public class Util {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "3We-EP9-ztf-njW";
     private static SessionFactory sessionFactory = null;
-    private static Util INSTANCE;
+    private static Util util = null;
 
     private Util() {
     }
 
-    public static Util getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Util();
+    public static Util getUtil() {
+        if (util == null) {
+            util = new Util();
         }
-        return INSTANCE;
+        return util;
     }
 
     public static SessionFactory getSessionFactory() {
