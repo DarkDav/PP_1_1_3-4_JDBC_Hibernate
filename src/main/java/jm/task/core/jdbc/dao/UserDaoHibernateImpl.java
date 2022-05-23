@@ -33,7 +33,7 @@ public class UserDaoHibernateImpl implements UserDao {
                     "age tinyint, " +
                     "PRIMARY KEY (id))").executeUpdate();
             transaction.commit();
-            System.out.println("Таблица создана");
+            System.out.println("РўР°Р±Р»РёС†Р° СЃРѕР·РґР°РЅР°");
         } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -55,7 +55,7 @@ public class UserDaoHibernateImpl implements UserDao {
             try {
                 session.createNativeQuery("DROP TABLE IF EXISTS users").executeUpdate();
                 transaction.commit();
-            System.out.println("Таблица удалена");
+            System.out.println("РўР°Р±Р»РёС†Р° СѓРґР°Р»РµРЅР°");
         } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -91,7 +91,7 @@ public class UserDaoHibernateImpl implements UserDao {
             try {
                 session.delete(session.get(User.class, id));
                 transaction.commit();
-            System.out.println("User удален");
+            System.out.println("User СѓРґР°Р»РµРЅ");
         } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -123,7 +123,7 @@ public class UserDaoHibernateImpl implements UserDao {
            try {
                session.createNativeQuery("TRUNCATE TABLE users;").executeUpdate();
                transaction.commit();
-            System.out.println("Таблица очищена");
+            System.out.println("РўР°Р±Р»РёС†Р° РѕС‡РёС‰РµРЅР°");
         } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
