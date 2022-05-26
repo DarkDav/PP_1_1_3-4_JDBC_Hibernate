@@ -18,13 +18,13 @@ public class Main {
     public static void main(String[] args) {
         UserService userService = new UserServiceImpl();
 
-
         userService.createUsersTable();
         List<User> userList = new ArrayList<>();
         userList.add(user1);
         userList.add(user2);
         userList.add(user3);
         userList.add(user4);
+
         for (User a : userList
         ) {
             userService.saveUser(a.getName(), a.getLastName(), a.getAge());
@@ -36,6 +36,6 @@ public class Main {
         userService.getAllUsers();
         userService.cleanUsersTable();
         userService.dropUsersTable();
-        // реализуйте алгоритм здесь
+
     }
 }

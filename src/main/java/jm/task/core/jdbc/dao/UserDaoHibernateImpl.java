@@ -13,19 +13,14 @@ import java.util.List;
 public class UserDaoHibernateImpl implements UserDao {
     private final SessionFactory sessionFactory = Util.getUtil().getSessionFactory();
 
-
     public UserDaoHibernateImpl() {
 
-
     }
-
 
     @Override
     public void createUsersTable() {
         Transaction transaction = null;
-        try (Session session = sessionFactory.openSession()
-
-        ) {
+        try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
             session.createNativeQuery("CREATE TABLE IF NOT EXISTS users" +
                     " (id mediumint not null auto_increment, name VARCHAR(50), " +
@@ -39,12 +34,9 @@ public class UserDaoHibernateImpl implements UserDao {
                 transaction.rollback();
             }
             e.printStackTrace();
-
-
         }
 
     }
-
 
     @Override
     public void dropUsersTable() {
@@ -52,9 +44,9 @@ public class UserDaoHibernateImpl implements UserDao {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            try {
-                session.createNativeQuery("DROP TABLE IF EXISTS users").executeUpdate();
-                transaction.commit();
+
+            session.createNativeQuery("DROP TABLE IF EXISTS users").executeUpdate();
+            transaction.commit();
             System.out.println("Таблица удалена");
         } catch (HibernateException e) {
             if (transaction != null) {
@@ -63,24 +55,23 @@ public class UserDaoHibernateImpl implements UserDao {
             e.printStackTrace();
         }
     }
-    }
+
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
-
+        Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            try {
-                session.save(new User(name, lastName, age));
-                transaction.commit();
-            } catch (Exception e) {
-                if (transaction != null) {
-                    transaction.rollback();
-                }
-                e.printStackTrace();
+            transaction = session.beginTransaction();
+            session.save(new User(name, lastName, age));
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
             }
+            e.printStackTrace();
         }
     }
+
 
     @Override
     public void removeUserById(long id) {
@@ -88,9 +79,9 @@ public class UserDaoHibernateImpl implements UserDao {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            try {
-                session.delete(session.get(User.class, id));
-                transaction.commit();
+
+            session.delete(session.get(User.class, id));
+            transaction.commit();
             System.out.println("User удален");
         } catch (HibernateException e) {
             if (transaction != null) {
@@ -99,7 +90,7 @@ public class UserDaoHibernateImpl implements UserDao {
             e.printStackTrace();
         }
     }
-    }
+
 
     @Override
     public List<User> getAllUsers() {
@@ -110,7 +101,6 @@ public class UserDaoHibernateImpl implements UserDao {
             return session.createQuery(criteriaQuery).getResultList();
         } catch (HibernateException e) {
             e.printStackTrace();
-
         }
         return userList;
     }
@@ -120,9 +110,8 @@ public class UserDaoHibernateImpl implements UserDao {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-           try {
-               session.createNativeQuery("TRUNCATE TABLE users;").executeUpdate();
-               transaction.commit();
+            session.createNativeQuery("TRUNCATE TABLE users;").executeUpdate();
+            transaction.commit();
             System.out.println("Таблица очищена");
         } catch (HibernateException e) {
             if (transaction != null) {
@@ -131,5 +120,4 @@ public class UserDaoHibernateImpl implements UserDao {
             e.printStackTrace();
         }
     }
-}
 }
